@@ -1,0 +1,100 @@
+
+
+
+Spring Container Ex using xml file configuration
+-------------------------------------------------
+
+package in.sp.beans;
+
+public class Student {
+
+	private String name;
+	private int rno;
+	private String  email;
+	public Student() {
+		
+	}
+	public Student(String name,int rno,String email) {
+		super();
+		this.name=name;
+		this.rno=rno;
+		this.email=email;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getRno() {
+		return rno;
+	}
+	public void setRno(int rno) {
+		this.rno = rno;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public void display() {
+		System.out.println("Name: "+name);
+		System.out.println("Rno: "+rno);
+		System.out.println("emial: "+email);
+		
+		
+	}
+}
+
+---------------------------------------------------------------
+package in.sp.main;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import in.sp.beans.Student;
+
+public class Main {
+	public static void main(String[] args) {
+		
+		String config_loc = "classpath:/in/sp/resources/applicationContext.xml";
+
+		ApplicationContext context =new ClassPathXmlApplicationContext(config_loc);
+		
+		Student std=(Student)context.getBean("stdId");
+		std.display();
+		
+		
+	}
+
+}
+
+//1.spring-beans-xxx.jar
+//2.spring-core-xxx.jar
+//3spring-context-xxx.jar
+//4.common-logging.xxx.jar
+//5.spring-expression-xxx.jar
+----------------------------------------------------
+//in.sp.resources
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="stdId" class="in.sp.beans.Student">
+        <property name="name" value="Deeepak"/>
+        <property name="rno" value="23"/>
+        <property name="email" value="jiio@gmail.com"/>
+    </bean>
+
+</beans>
+
+--------------------------------
+O/P:
+
+Name: Deeepak
+Rno: 23
+emial: jiio@gmail.com
+

@@ -1,0 +1,106 @@
+
+Spring Program example 2 Java file configuration
+
+----------------------------------------------------
+
+package in.sp.beans;
+import org.springframework.stereotype.Component;
+public class Student {
+
+	private String name;
+	private int rno;
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getRno() {
+		return rno;
+	}
+	public void setRno(int rno) {
+		this.rno = rno;
+	}
+	public void display() {
+		System.out.println("Name:"+name);
+		System.out.println("Rno:"+rno);
+	}
+	
+}
+
+-------------------------------------------------
+
+package in.sp.main;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import in.sp.beans.Student;
+import in.sp.resources.SpringConfigFile;
+
+public class Main {
+
+	public static void main(String[] args) {
+		ApplicationContext context=new AnnotationConfigApplicationContext(SpringConfigFile.class);
+		//Student std=(Student) context.getBean("StdId1");
+		//std.display();
+		
+		Student std1=(Student) context.getBean("stdobj1");
+		std1.display();
+		
+		Student std2=(Student) context.getBean("stdobj2");
+		std2.display();
+	
+
+	}
+
+}
+
+----------------------------------------------------------------------
+ class SpringConfigFile in in.sp.resources
+ -----------------------------------------
+
+package in.sp.resources;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import in.sp.beans.Student;
+
+@Configuration
+
+public class SpringConfigFile {
+	@Bean("stdobj1") 
+	public Student StdId1() {
+		Student std=new Student();
+		std.setName("Priya");
+		std.setRno(23);
+		return std;
+	}
+	@Bean("stdobj2") 
+	public Student StdId2() {
+		Student std=new Student();
+		std.setName("Riya");
+		std.setRno(25);
+		return std;
+	}
+}
+
+---------------------------------------
+right click on project-bulid-classpath-add jars
+//1.spring-beans-xxx.jar
+//2.spring-core-xxx.jar
+//3spring-context-xxx.jar
+//4.common-logging.xxx.jar
+//5.spring-expression-xxx.jar
+//6.spring-aop.jar
+	
+	
+----------------------------------------------
+O/p:
+
+Name:Priya
+Rno:23
+Name:Riya
+Rno:25
+-----------------------------------
